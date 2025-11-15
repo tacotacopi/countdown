@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iiSU Presentation Countdown</title>
+
+    <!-- Sol Black Font (replace URL with your actual font file location) -->
+    <style>
+        @font-face {
+            font-family: 'Sol Black';
+            src: url('Sol-Black.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background: #111;
+            color: #fff;
+            font-family: 'Sol Black', sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 40px;
+        }
+
+        #countdown {
+            font-size: 36px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>iiSU Presentation Countdown</h1>
+    <div id="countdown">Loading...</div>
+
+    <script>
+        // Target date: Nov 20, 2025 @ 12:00 PM JST (UTC+9)
+        const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("countdown").innerHTML = "Today!";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
