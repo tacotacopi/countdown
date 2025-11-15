@@ -36,28 +36,12 @@
             width: 250px;
             margin-bottom: 20px;
         }
-
-        #unmuteBtn {
-            margin-top: 30px;
-            padding: 12px 25px;
-            font-size: 20px;
-            font-family: 'ContinuumMedium';
-            cursor: pointer;
-            background: #444;
-            color: white;
-            border: none;
-            border-radius: 8px;
-        }
-
-        #unmuteBtn:hover {
-            background: #666;
-        }
     </style>
 </head>
 <body>
 
     <!-- Background Music -->
-    <audio src="music.mp3" autoplay loop></audio>
+    <audio id="bgm" src="music.mp3" autoplay loop></audio>
 
     <!-- Logo -->
     <img src="iisu.png" class="logo" alt="iiSU Logo">
@@ -65,18 +49,10 @@
     <h1>iiSU Presentation Countdown</h1>
     <div id="countdown">Loading...</div>
 
-    <button id="unmuteBtn">Unmute Music</button>
-
     <script>
-        // Unmute button logic
+        // Try to force autoplay (may fail depending on browser rules)
         const bgm = document.getElementById("bgm");
-        const btn = document.getElementById("unmuteBtn");
-
-        btn.addEventListener("click", () => {
-            bgm.muted = false;
-            bgm.play();
-            btn.style.display = "none"; // hide button once unmuted
-        });
+        bgm.volume = 1.0;
 
         // Countdown logic
         const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
