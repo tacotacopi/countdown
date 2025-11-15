@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>iiSU Presentation Countdown</title>
 
-    <!-- Sol Black Font -->
     <style>
         @font-face {
             font-family: 'ContinuumMedium';
@@ -24,6 +23,12 @@
         h1 {
             font-size: 48px;
             margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #bbb;
             margin-bottom: 40px;
         }
 
@@ -47,12 +52,12 @@
     <img src="iisu.png" class="logo" alt="iiSU Logo">
 
     <h1>iiSU Presentation Countdown</h1>
+    <p class="subtitle">Unofficial Website</p>
+
     <div id="countdown">Loading...</div>
 
     <script>
-        // Try to force autoplay (may fail depending on browser rules)
         const bgm = document.getElementById("bgm");
-        bgm.volume = 1.0;
 
         // Countdown logic
         const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
