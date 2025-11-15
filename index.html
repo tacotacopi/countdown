@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>iiSU Presentation Countdown</title>
 
-    <!-- Sol Black Font (replace URL with your actual font file location) -->
+    <!-- Sol Black Font -->
     <style>
         @font-face {
             font-family: 'Sol Black';
@@ -18,11 +18,12 @@
             color: #fff;
             font-family: 'Sol Black', sans-serif;
             text-align: center;
-            padding-top: 100px;
+            padding-top: 50px;
         }
 
         h1 {
             font-size: 48px;
+            margin-top: 20px;
             margin-bottom: 40px;
         }
 
@@ -30,15 +31,54 @@
             font-size: 36px;
             letter-spacing: 2px;
         }
+
+        img.logo {
+            width: 250px;
+            margin-bottom: 20px;
+        }
+
+        #unmuteBtn {
+            margin-top: 30px;
+            padding: 12px 25px;
+            font-size: 20px;
+            font-family: 'Sol Black';
+            cursor: pointer;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+        #unmuteBtn:hover {
+            background: #666;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Background Music -->
+    <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
+
+    <!-- Logo -->
+    <img src="iisu.png" class="logo" alt="iiSU Logo">
+
     <h1>iiSU Presentation Countdown</h1>
     <div id="countdown">Loading...</div>
 
+    <button id="unmuteBtn">Unmute Music</button>
+
     <script>
-        // Target date: Nov 20, 2025 @ 12:00 PM JST (UTC+9)
+        // Unmute button logic
+        const bgm = document.getElementById("bgm");
+        const btn = document.getElementById("unmuteBtn");
+
+        btn.addEventListener("click", () => {
+            bgm.muted = false;
+            bgm.play();
+            btn.style.display = "none"; // hide button once unmuted
+        });
+
+        // Countdown logic
         const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
 
         function updateCountdown() {
@@ -46,7 +86,7 @@
             const difference = targetDate - now;
 
             if (difference <= 0) {
-                document.getElementById("countdown").innerHTML = "Today!";
+                document.getElementById("countdown").innerHTML = "The presentation has started!";
                 return;
             }
 
@@ -56,7 +96,7 @@
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
             document.getElementById("countdown").innerHTML =
-                `${days}D ${hours}H ${minutes}M ${seconds}S`;
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
 
         updateCountdown();
