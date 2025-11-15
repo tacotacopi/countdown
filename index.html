@@ -56,33 +56,47 @@
 
     <div id="countdown">Loading...</div>
 
-    <script>
-        const bgm = document.getElementById("bgm");
+   <script>
+    const bgm = document.getElementById("bgm");
 
-        // Countdown logic
-        const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
+    // Countdown logic
+    const targetDate = new Date("2025-11-20T12:00:00+09:00").getTime();
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
 
-            if (difference <= 0) {
-                document.getElementById("countdown").innerHTML = "The presentation has started!";
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML =
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        if (difference <= 0) {
+            document.getElementById("countdown").innerHTML = "The presentation has started!";
+            return;
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // --- NEW CODE: Unmute music on first click ---
+    function enableAudioOnce() {
+        bgm.muted = false;      // unmute
+        bgm.volume = 1.0;       // set volume
+        bgm.play();             // force play in case browser paused it
+
+        // Remove listener so it runs only once
+        document.removeEventListener("click", enableAudioOnce);
+    }
+
+    // Listen for first user interaction
+    document.addEventListener("click", enableAudioOnce);
+</script>
+
 
 </body>
 </html>
