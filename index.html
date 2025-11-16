@@ -35,7 +35,7 @@
         #countdown {
             font-size: 36px;
             letter-spacing: 2px;
-            margin-bottom: 40px; /* Add some space below countdown */
+            margin-bottom: 40px;
         }
 
         img.logo {
@@ -46,10 +46,22 @@
         /* Style for the YouTube embed */
         .youtube-embed {
             margin-top: 40px;
-            max-width: 100%;
-            height: 315px; /* Fixed height for YouTube embed */
+            width: 100%;
+            height: 315px;
             background: #000;
             border: none;
+        }
+
+        .youtube-link {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 20px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .youtube-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -62,14 +74,14 @@
     <img src="iisu.png" class="logo" alt="iiSU Logo">
 
     <h1>iiSU Presentation Countdown</h1>
-    <p class="subtitle">Unofficial Website. Countdown is not final</p>
+    <p class="subtitle">Unofficial Website. Countdown is not final.</p>
 
     <div id="countdown">Loading...</div>
 
-    <!-- YouTube Embed for @usagishade -->
-    <div>
-        <iframe class="youtube-embed" src="https://www.youtube.com/embed/?listType=user_uploads&list=USAGISHADE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <!-- Link to the YouTube Channel -->
+    <a href="https://www.youtube.com/c/usagishade" target="_blank" class="youtube-link">
+        
+    </a>
 
    <script>
     const bgm = document.getElementById("bgm");
@@ -114,3 +126,4 @@
 
 </body>
 </html>
+
