@@ -24,7 +24,7 @@
             font-size: 48px;
             margin-top: 20px;
             margin-bottom: 10px;
-            cursor: pointer;  
+            cursor: pointer;  /* Make it look clickable */
         }
 
         .subtitle {
@@ -44,39 +44,23 @@
             margin-bottom: 20px;
         }
 
-        .youtube-embed {
-            margin-top: 40px;
-            width: 100%;
-            height: 315px;
-            background: #000;
-            border: none;
-        }
-
-        .youtube-link {
-            color: #00ff00;
-            text-decoration: none;
-            font-size: 20px;
-            margin-top: 20px;
-            display: inline-block;
-        }
-
-        .youtube-link:hover {
-            text-decoration: underline;
-        }
-
+        /* Usagi GIF styles */
         #usagi {
             position: fixed;
-            bottom: -200px;
+            bottom: -200px;  /* Initially hide it below the screen */
             right: 20px;
             width: 100px;
             z-index: 9999;
-            transition: bottom 0.5s ease; /* oo so Smooth  */
+            background-color: red;  /* Temporary background to see if it's there */
+            transition: bottom 0.5s ease; /* Smooth transition */
         }
 
+        /* Animation for sliding up */
         .slide-up {
             bottom: 20px;
         }
 
+        /* Animation for sliding down */
         .slide-down {
             bottom: -200px;
         }
@@ -84,8 +68,10 @@
 </head>
 <body>
 
+    <!-- Background Music -->
     <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
 
+    <!-- Logo -->
     <img src="iisu.png" class="logo" alt="iiSU Logo">
 
     <h1>iiSU Presentation Countdown</h1>
@@ -93,19 +79,15 @@
 
     <div id="countdown">Loading...</div>
 
+    <!-- Usagi GIF (hidden by default) -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
-
-    <!-- Link to the YouTube Channel. Will be used later -->
-    <a href="https://www.youtube.com/c/usagishade" target="_blank" class="youtube-link">
-        
-    </a>
 
     <script>
         const bgm = document.getElementById("bgm");
         const usagi = document.getElementById("usagi");
         const countdownText = document.getElementById("countdown");
 
-        // Countdown
+        // Countdown logic
         const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
 
         function updateCountdown() {
@@ -132,18 +114,28 @@
         function enableAudioOnce() {
             bgm.muted = false;      // unmute
             bgm.volume = 1.0;       // set volume
-            bgm.play();             // plays it
+            bgm.play();             // force play in case browser paused it
 
+            // Remove listener so it runs only once
             document.removeEventListener("click", enableAudioOnce);
         }
 
+        // Listen for first user interaction
         document.addEventListener("click", enableAudioOnce);
 
+        // --- NEW CODE: Trigger Usagi animation ---
         document.querySelector("h1").addEventListener("click", () => {
+            console.log("Heading clicked");  // Check if the click is triggered
+
+            // Slide up the usagi.gif
             usagi.classList.add("slide-up");
+            console.log("Slide up triggered");
+
+            // Slide it back down after 4 seconds
             setTimeout(() => {
                 usagi.classList.remove("slide-up");
                 usagi.classList.add("slide-down");
+                console.log("Slide down triggered");
             }, 4000); // 4 seconds
         });
 
