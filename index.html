@@ -39,7 +39,6 @@
             margin-bottom: 20px;
         }
 
-        /* NEW timezone info styling */
         #timezoneInfo {
             font-size: 18px;
             color: #ccc;
@@ -87,6 +86,22 @@
         #muteButton:hover {
             background-color: rgba(0, 0, 0, 0.8);
         }
+
+        /* ---- PEAM POPUP ---- */
+        #peam {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            z-index: 10001;
+        }
+        #peam.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -102,13 +117,12 @@
 
     <div id="countdown">Loading...</div>
 
-    <!-- NEW: Timezone + local event time -->
     <div id="timezoneInfo">finding your time zone...</div>
 
-    <!-- Usagi GIF -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
+    
+    <img id="peam" src="peam.gif" alt="Peam GIF">
 
-    <!-- Mute Button -->
     <button id="muteButton">🔇</button>
 
 <script>
@@ -155,7 +169,6 @@
         bgm.play();
         document.removeEventListener("click", enableAudioOnce);
     }
-
     document.addEventListener("click", enableAudioOnce);
 
     // Usagi animation + sound
@@ -179,50 +192,61 @@
         muteButton.textContent = bgm.muted ? "🔇" : "🔈";
     });
 
-    // --- NEW: Timezone + Local Event Time ---
-    // --- NEW: Timezone + Local Event Time with color warning ---
-function updateTimezoneInfo() {
-    const timezoneInfo = document.getElementById("timezoneInfo");
+    // --- Timezone + Local Event Time ---
+    function updateTimezoneInfo() {
+        const timezoneInfo = document.getElementById("timezoneInfo");
 
-    const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
-    const now = new Date();
+        const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
+        const now = new Date();
 
-    const timeLeft = eventDatePST - now;
+        const timeLeft = eventDatePST - now;
 
-    // Convert event time to local
-    const eventLocalString = eventDatePST.toLocaleString([], {
-        dateStyle: "full",
-        timeStyle: "short"
-    });
+        const eventLocalString = eventDatePST.toLocaleString([], {
+            dateStyle: "full",
+            timeStyle: "short"
+        });
 
-    // Default text
-    timezoneInfo.innerHTML =
-        `Presentation Time in Your Local Time:<br><b>${eventLocalString}</b>`;
+        timezoneInfo.innerHTML =
+            `Presentation Time in Your Local Time:<br><b>${eventLocalString}</b>`;
 
-    // --- COLOR CHANGE BASED ON TIME LEFT ---
-    if (timeLeft <= 0) {
-        // Event has started
-        timezoneInfo.style.color = "#4aff4a";  // green
-        timezoneInfo.innerHTML = "The presentation has started!";
-    } else if (timeLeft < 60 * 60 * 1000) {
-        // Under 1 hour
-        timezoneInfo.style.color = "#ff4a4a";  // red
-    } else if (timeLeft < 24 * 60 * 60 * 1000) {
-        // Under 24 hours
-        timezoneInfo.style.color = "#ff9e4a";  // orange
-    } else if (timeLeft < 7 * 24 * 60 * 60 * 1000) {
-        // Under 1 week
-        timezoneInfo.style.color = "#ffda6b";  // warm yellow
-    } else {
-        // Far away
-        timezoneInfo.style.color = "#ccc";     // default gray
+        if (timeLeft <= 0) {
+            timezoneInfo.style.color = "#4aff4a";  
+            timezoneInfo.innerHTML = "The presentation has started!";
+        } else if (timeLeft < 60 * 60 * 1000) {
+            timezoneInfo.style.color = "#ff4a4a";  
+        } else if (timeLeft < 24 * 60 * 60 * 1000) {
+            timezoneInfo.style.color = "#ff9e4a"; 
+        } else if (timeLeft < 7 * 24 * 60 * 60 * 1000) {
+            timezoneInfo.style.color = "#ffda6b"; 
+        } else {
+            timezoneInfo.style.color = "#ccc";     
+        }
     }
-}
 
     updateTimezoneInfo();
-    setInterval(updateTimezoneInfo, 1000); // update every second
+    setInterval(updateTimezoneInfo, 1000);
+
+
+    // ---- PEAM EASTER EGG (appears after 4 clicks) ----
+    let clickCount = 0;
+    const peam = document.getElementById("peam");
+
+    document.addEventListener("click", () => {
+        clickCount++;
+
+        if (clickCount === 4) {
+            peam.classList.add("show");
+
+            setTimeout(() => {
+                peam.classList.remove("show");
+            }, 2000);
+
+            clickCount = 0;
+        }
+    });
 </script>
 
 </body>
 </html>
+
