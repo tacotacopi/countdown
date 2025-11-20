@@ -180,24 +180,48 @@
     });
 
     // --- NEW: Timezone + Local Event Time ---
-    function updateTimezoneInfo() {
-        const timezoneInfo = document.getElementById("timezoneInfo");
+    // --- NEW: Timezone + Local Event Time with color warning ---
+function updateTimezoneInfo() {
+    const timezoneInfo = document.getElementById("timezoneInfo");
 
-        const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
+    const now = new Date();
 
-        const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
+    const timeLeft = eventDatePST - now;
 
-        const eventLocalString = eventDatePST.toLocaleString([], {
-            dateStyle: "full",
-            timeStyle: "short"
-        });
+    // Convert event time to local
+    const eventLocalString = eventDatePST.toLocaleString([], {
+        dateStyle: "full",
+        timeStyle: "short"
+    });
 
-        timezoneInfo.innerHTML =
-            `Presentation Time in Your Local Time:</b><br>` +
-            `<b>${eventLocalString}</b>`;
+    // Default text
+    timezoneInfo.innerHTML =
+        `Presentation Time in Your Local Time:<br><b>${eventLocalString}</b>`;
+
+    // --- COLOR CHANGE BASED ON TIME LEFT ---
+    if (timeLeft <= 0) {
+        // Event has started
+        timezoneInfo.style.color = "#4aff4a";  // green
+        timezoneInfo.innerHTML = "The presentation has started!";
+    } else if (timeLeft < 60 * 60 * 1000) {
+        // Under 1 hour
+        timezoneInfo.style.color = "#ff4a4a";  // red
+    } else if (timeLeft < 24 * 60 * 60 * 1000) {
+        // Under 24 hours
+        timezoneInfo.style.color = "#ff9e4a";  // orange
+    } else if (timeLeft < 7 * 24 * 60 * 60 * 1000) {
+        // Under 1 week
+        timezoneInfo.style.color = "#ffda6b";  // warm yellow
+    } else {
+        // Far away
+        timezoneInfo.style.color = "#ccc";     // default gray
     }
+}
 
     updateTimezoneInfo();
+    setInterval(updateTimezoneInfo, 1000); // update every second
 </script>
 
 </body>
