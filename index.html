@@ -45,23 +45,24 @@
         }
 
         /* Usagi GIF styles */
-    #usagi {
-        position: fixed;
-        bottom: -200px;
-        right: 20px;
-        width: 100px;
-        z-index: 9999;
-        background-color: red;
-        transition: transform 0.5s ease; /* Transitioning transform for smoother animation */
-    }
+        #usagi {
+            position: fixed;
+            bottom: -200px;  /* Initially hide it below the screen */
+            right: 20px;
+            width: 100px;
+            z-index: 9999;
+            transition: bottom 0.5s ease; /* Smooth transition */
+        }
 
-    .slide-up {
-        transform: translateY(-220px); /* Moves the GIF up */
-    }
+        /* Animation for sliding up */
+        .slide-up {
+            bottom: 20px; /* Moves the GIF up */
+        }
 
-    .slide-down {
-        transform: translateY(200px); /* Moves it back down */
-    }
+        /* Animation for sliding down */
+        .slide-down {
+            bottom: -200px; /* Moves it back down */
+        }
     </style>
 </head>
 <body>
@@ -123,20 +124,24 @@
 
         // --- NEW CODE: Trigger Usagi animation ---
         document.querySelector("h1").addEventListener("click", () => {
-            console.log("Heading clicked");  // Check if the click is triggered
+            console.log("Heading clicked");
 
             // Slide up the usagi.gif
             usagi.classList.add("slide-up");
             console.log("Slide up triggered");
 
-            // Slide it back down after 4 seconds
+            // After 4 seconds, slide it back down and reset the animation
             setTimeout(() => {
                 usagi.classList.remove("slide-up");
                 usagi.classList.add("slide-down");
                 console.log("Slide down triggered");
             }, 4000); // 4 seconds
-        });
 
+            // Reset the slide after the animation completes to allow it to pop up again
+            setTimeout(() => {
+                usagi.classList.remove("slide-down");
+            }, 4500); // A little longer than the slide down time
+        });
     </script>
 
 </body>
