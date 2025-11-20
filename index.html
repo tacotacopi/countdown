@@ -101,7 +101,7 @@
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
 
     <!-- Mute Button -->
-    <button id="muteButton">Mute Music</button>
+    <button id="muteButton">🔇</button>
 
 <script>
     const bgm = document.getElementById("bgm");
@@ -175,7 +175,7 @@
     // Mute/Unmute Button functionality
     muteButton.addEventListener("click", () => {
         bgm.muted = !bgm.muted;  // Toggle mute
-        muteButton.textContent = bgm.muted ? "Unmute Music" : "Mute Music";  // Toggle button text
+        muteButton.textContent = bgm.muted ? "🔇" : "🔈";  // Toggle button text
     });
 </script>
 
