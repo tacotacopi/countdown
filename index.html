@@ -103,7 +103,7 @@
     <div id="countdown">Loading...</div>
 
     <!-- NEW: Timezone + local event time -->
-    <div id="timezoneInfo">Detecting your time zone...</div>
+    <div id="timezoneInfo">finding your time zone...</div>
 
     <!-- Usagi GIF -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
@@ -193,7 +193,6 @@
         });
 
         timezoneInfo.innerHTML =
-            `Your Time Zone: <b>${userTZ}</b><br>` +
             `Presentation Time in Your Local Time: <b>${eventLocalString}</b>`;
     }
 
