@@ -80,64 +80,67 @@
     <!-- Usagi GIF (hidden by default) -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
 
-    <script>
-        const bgm = document.getElementById("bgm");
-        const usagi = document.getElementById("usagi");
-        const countdownText = document.getElementById("countdown");
+<script>
+    const bgm = document.getElementById("bgm");
+    const usagi = document.getElementById("usagi");
+    const countdownText = document.getElementById("countdown");
 
-        // Countdown logic
-        const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
+    // NEW: Chirp sound
+    const chirp = new Audio("chirper1.ogg");
+    chirp.preload = "auto";
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
+    // Countdown logic
+    const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
 
-            if (difference <= 0) {
-                countdownText.innerHTML = "The presentation has started!";
-                return;
-            }
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            countdownText.innerHTML =
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        if (difference <= 0) {
+            countdownText.innerHTML = "The presentation has started!";
+            return;
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        function enableAudioOnce() {
-            bgm.muted = false;      // unmute
-            bgm.volume = 1.0;       // set volume
-            bgm.play();             // force play in case browser paused it
+        countdownText.innerHTML =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
 
-            // Remove listener so it runs only once
-            document.removeEventListener("click", enableAudioOnce);
-        }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-        // Listen for first user interaction
-        document.addEventListener("click", enableAudioOnce);
+    function enableAudioOnce() {
+        bgm.muted = false;
+        bgm.volume = 1.0;
+        bgm.play();
 
-        // --- NEW CODE: Trigger Usagi animation ---
-        document.querySelector("h1").addEventListener("click", () => {
-            console.log("Heading clicked");  // Check if the click is triggered
+        document.removeEventListener("click", enableAudioOnce);
+    }
 
-            // Slide up the usagi.gif
-            usagi.classList.add("slide-up");
-            console.log("Slide up triggered");
+    document.addEventListener("click", enableAudioOnce);
 
-            // Slide it back down after 4 seconds
-            setTimeout(() => {
-                usagi.classList.remove("slide-up");
-                usagi.classList.add("slide-down");
-                console.log("Slide down triggered");
-            }, 4000); // 4 seconds
-        });
+    // --- Trigger Usagi animation and chirp ---
+    document.querySelector("h1").addEventListener("click", () => {
 
-    </script>
+        // Slide Usagi up
+        usagi.classList.remove("slide-down");
+        usagi.classList.add("slide-up");
+
+        // Play chirp once
+        chirp.currentTime = 0;  // restart sound
+        chirp.play().catch(err => console.log("Audio play blocked:", err));
+
+        // Slide back down after 4s
+        setTimeout(() => {
+            usagi.classList.remove("slide-up");
+            usagi.classList.add("slide-down");
+        }, 4000);
+    });
+</script>
 
 </body>
 </html>
