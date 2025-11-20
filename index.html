@@ -45,25 +45,23 @@
         }
 
         /* Usagi GIF styles */
-        #usagi {
-            position: fixed;
-            bottom: -200px;  /* Initially hide it below the screen */
-            right: 20px;
-            width: 100px;
-            z-index: 9999;
-            background-color: red;  /* Temporary background to see if it's there */
-            transition: bottom 0.5s ease; /* Smooth transition */
-        }
+    #usagi {
+        position: fixed;
+        bottom: -200px;
+        right: 20px;
+        width: 100px;
+        z-index: 9999;
+        background-color: red;
+        transition: transform 0.5s ease; /* Transitioning transform for smoother animation */
+    }
 
-        /* Animation for sliding up */
-        .slide-up {
-            bottom: 20px;
-        }
+    .slide-up {
+        transform: translateY(-220px); /* Moves the GIF up */
+    }
 
-        /* Animation for sliding down */
-        .slide-down {
-            bottom: -200px;
-        }
+    .slide-down {
+        transform: translateY(200px); /* Moves it back down */
+    }
     </style>
 </head>
 <body>
