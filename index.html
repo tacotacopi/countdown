@@ -268,16 +268,6 @@
     let peamShown = false;
     const peam = document.getElementById("peam");
 
-    document.addEventListener("click", () => {
-        if (peamShown) return;
-        clickCount++;
-
-        if (clickCount === 4) {
-            peam.classList.add("show");
-            setTimeout(() => peam.classList.remove("show"), 2000);
-            peamShown = true;
-        }
-    });
 </script>
 
 
