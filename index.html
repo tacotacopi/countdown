@@ -131,19 +131,17 @@
     const countdownText = document.getElementById("countdown");
     const muteButton = document.getElementById("muteButton");
 
-    // Multiple Chirp sounds
     const chirps = [
         new Audio("chirper1.ogg"),
         new Audio("chirper2.ogg"),
         new Audio("chirper3.ogg")
     ];
-    chirps.forEach(chirp => chirp.preload = "auto");
+    chirps.forEach(chirp => { chirp.preload = "auto"; chirp.load(); });
 
-    // Countdown target
     const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
 
     function updateCountdown() {
-        const now = new Date().getTime();
+        const now = Date.now();
         const difference = targetDate - now;
 
         if (difference <= 0) {
@@ -169,16 +167,16 @@
         bgm.play();
         document.removeEventListener("click", enableAudioOnce);
     }
-    document.addEventListener("click", enableAudioOnce);
+    document.addEventListener("click", enableAudioOnce, { once: true });
 
-    // Usagi animation + sound
+    // Usagi on logo click
     document.querySelector(".logo").addEventListener("click", () => {
         usagi.classList.remove("slide-down");
         usagi.classList.add("slide-up");
 
         const randomChirp = chirps[Math.floor(Math.random() * chirps.length)];
         randomChirp.currentTime = 0;
-        randomChirp.play().catch(err => console.log("Audio blocked:", err));
+        randomChirp.play().catch(() => {});
 
         setTimeout(() => {
             usagi.classList.remove("slide-up");
@@ -186,20 +184,16 @@
         }, 4000);
     });
 
-    // Mute Button
     muteButton.addEventListener("click", () => {
         bgm.muted = !bgm.muted;
         muteButton.textContent = bgm.muted ? "🔇" : "🔈";
     });
 
-    // --- Timezone + Local Event Time ---
     function updateTimezoneInfo() {
         const timezoneInfo = document.getElementById("timezoneInfo");
 
-        const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
         const now = new Date();
-
         const timeLeft = eventDatePST - now;
 
         const eventLocalString = eventDatePST.toLocaleString([], {
@@ -211,41 +205,78 @@
             `Presentation Time in Your Local Time:<br><b>${eventLocalString}</b>`;
 
         if (timeLeft <= 0) {
-            timezoneInfo.style.color = "#4aff4a";  
+            timezoneInfo.style.color = "#4aff4a";
             timezoneInfo.innerHTML = "The presentation has started!";
         } else if (timeLeft < 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ff4a4a";  
+            timezoneInfo.style.color = "#ff4a4a";
         } else if (timeLeft < 24 * 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ff9e4a"; 
+            timezoneInfo.style.color = "#ff9e4a";
         } else if (timeLeft < 7 * 24 * 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ffda6b"; 
+            timezoneInfo.style.color = "#ffda6b";
         } else {
-            timezoneInfo.style.color = "#ccc";     
+            timezoneInfo.style.color = "#ccc";
         }
     }
 
     updateTimezoneInfo();
     setInterval(updateTimezoneInfo, 1000);
 
+    function spawnFallingPeam() {
+        const img = document.createElement("img");
+        img.src = "peam.png";
+        img.style.position = "fixed";
+        img.style.width = "80px";
 
-    // ---- PEAM EASTER EGG (appears after 4 clicks) ----
+        // Random X across the entire top border
+        const x = Math.random() * (window.innerWidth - 80);
+        img.style.left = x + "px";
+        img.style.top = "-120px"; // start slightly off screen
+
+        img.style.zIndex = 20000;
+
+        // Animation styles
+        img.style.transition = "transform 2.2s ease-in, opacity 1s ease-in 1.5s";
+
+        document.body.appendChild(img);
+
+        // Let browser place it before animating
+        requestAnimationFrame(() => {
+            // Fall distance
+            const fallDistance = window.innerHeight + 200;
+            img.style.transform = `translateY(${fallDistance}px) rotate(${Math.random()*60 - 30}deg)`;
+            img.style.opacity = "0";
+        });
+
+        // Remove after animation
+        setTimeout(() => {
+            img.remove();
+        }, 2500);
+    }
+
+    // When you click the countdown, spawn a BURST of peams
+    countdownText.addEventListener("click", () => {
+        const burstCount = 6 + Math.floor(Math.random() * 5); // 6–10 peams
+        for (let i = 0; i < burstCount; i++) {
+            setTimeout(spawnFallingPeam, i * 120); // nice staggering effect
+        }
+    });
+    
     let clickCount = 0;
+    let peamShown = false;
     const peam = document.getElementById("peam");
 
     document.addEventListener("click", () => {
+        if (peamShown) return;
         clickCount++;
 
         if (clickCount === 4) {
             peam.classList.add("show");
-
-            setTimeout(() => {
-                peam.classList.remove("show");
-            }, 2000);
-
-            clickCount = 0;
+            setTimeout(() => peam.classList.remove("show"), 2000);
+            peamShown = true;
         }
     });
 </script>
+
 
 </body>
 </html>
