@@ -85,9 +85,13 @@
     const usagi = document.getElementById("usagi");
     const countdownText = document.getElementById("countdown");
 
-    // NEW: Chirp sound
-    const chirp = new Audio("chirper1.ogg");
-    chirp.preload = "auto";
+    // NEW: Multiple Chirp sounds
+    const chirps = [
+        new Audio("chirper1.ogg"),
+        new Audio("chirper2.ogg"),
+        new Audio("chirper3.ogg")
+    ];
+    chirps.forEach(chirp => chirp.preload = "auto");
 
     // Countdown logic
     const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
@@ -123,16 +127,19 @@
 
     document.addEventListener("click", enableAudioOnce);
 
-    // --- Trigger Usagi animation and chirp ---
+    // --- Trigger Usagi animation and random chirp ---
     document.querySelector("h1").addEventListener("click", () => {
 
         // Slide Usagi up
         usagi.classList.remove("slide-down");
         usagi.classList.add("slide-up");
 
-        // Play chirp once
-        chirp.currentTime = 0;  // restart sound
-        chirp.play().catch(err => console.log("Audio play blocked:", err));
+        // Pick a random chirp
+        const randomChirp = chirps[Math.floor(Math.random() * chirps.length)];
+
+        // Play random chirp sound
+        randomChirp.currentTime = 0;  // Restart sound
+        randomChirp.play().catch(err => console.log("Audio play blocked:", err));
 
         // Slide back down after 4s
         setTimeout(() => {
