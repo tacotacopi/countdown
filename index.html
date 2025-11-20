@@ -88,17 +88,18 @@
         }
 
         /* ---- PEAM POPUP ---- */
-        #peam {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.6s ease;
-            z-index: 10001;
-        }
+#peam {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 10001;
+}
+
         #peam.show {
             opacity: 1;
         }
@@ -254,12 +255,14 @@
     }
 
     // When you click the countdown, spawn a BURST of peams
-    countdownText.addEventListener("click", () => {
-        const burstCount = 6 + Math.floor(Math.random() * 5); // 6–10 peams
-        for (let i = 0; i < burstCount; i++) {
-            setTimeout(spawnFallingPeam, i * 120); // nice staggering effect
-        }
-    });
+    countdownText.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    const burstCount = 6 + Math.floor(Math.random() * 5);
+    for (let i = 0; i < burstCount; i++) {
+        setTimeout(spawnFallingPeam, i * 120);
+    }
+});
+
     
     let clickCount = 0;
     let peamShown = false;
