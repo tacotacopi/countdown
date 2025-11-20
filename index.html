@@ -24,7 +24,7 @@
             font-size: 48px;
             margin-top: 20px;
             margin-bottom: 10px;
-            cursor: pointer;  /* Make it look clickable */
+            cursor: pointer;
         }
 
         .subtitle {
@@ -36,16 +36,22 @@
         #countdown {
             font-size: 36px;
             letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* NEW timezone info styling */
+        #timezoneInfo {
+            font-size: 18px;
+            color: #ccc;
             margin-bottom: 40px;
         }
 
         img.logo {
             width: 250px;
             margin-bottom: 20px;
-            cursor: pointer;  /* Make it look clickable */
+            cursor: pointer;
         }
 
-        /* Usagi GIF styles */
         #usagi {
             position: fixed;
             bottom: -300px;
@@ -53,18 +59,17 @@
             width: 200px;
             z-index: 9999;
             background: rgba(0,0,0,0);
-            transition: transform 0.5s ease; /* Transitioning transform for smoother animation */
+            transition: transform 0.5s ease;
         }
 
         .slide-up {
-            transform: translateY(-320px); /* Moves the GIF up */
+            transform: translateY(-320px);
         }
 
         .slide-down {
-            transform: translateY(300px); /* Moves it back down */
+            transform: translateY(300px);
         }
 
-        /* Mute Button Styles */
         #muteButton {
             position: fixed;
             top: 10px;
@@ -82,7 +87,6 @@
         #muteButton:hover {
             background-color: rgba(0, 0, 0, 0.8);
         }
-
     </style>
 </head>
 <body>
@@ -98,7 +102,10 @@
 
     <div id="countdown">Loading...</div>
 
-    <!-- Usagi GIF (hidden by default) -->
+    <!-- NEW: Timezone + local event time -->
+    <div id="timezoneInfo">Detecting your time zone...</div>
+
+    <!-- Usagi GIF -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
 
     <!-- Mute Button -->
@@ -110,7 +117,7 @@
     const countdownText = document.getElementById("countdown");
     const muteButton = document.getElementById("muteButton");
 
-    // NEW: Multiple Chirp sounds
+    // Multiple Chirp sounds
     const chirps = [
         new Audio("chirper1.ogg"),
         new Audio("chirper2.ogg"),
@@ -118,7 +125,7 @@
     ];
     chirps.forEach(chirp => chirp.preload = "auto");
 
-    // Countdown logic
+    // Countdown target
     const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
 
     function updateCountdown() {
@@ -135,49 +142,62 @@
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        countdownText.innerHTML =
-            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        countdownText.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    // Enable audio on first click
     function enableAudioOnce() {
         bgm.muted = false;
         bgm.volume = 1.0;
         bgm.play();
-
         document.removeEventListener("click", enableAudioOnce);
     }
 
     document.addEventListener("click", enableAudioOnce);
 
-    // --- Trigger Usagi animation and random chirp ---
+    // Usagi animation + sound
     document.querySelector(".logo").addEventListener("click", () => {
-
-        // Slide Usagi up
         usagi.classList.remove("slide-down");
         usagi.classList.add("slide-up");
 
-        // Pick a random chirp
         const randomChirp = chirps[Math.floor(Math.random() * chirps.length)];
+        randomChirp.currentTime = 0;
+        randomChirp.play().catch(err => console.log("Audio blocked:", err));
 
-        // Play random chirp sound
-        randomChirp.currentTime = 0;  // Restart sound
-        randomChirp.play().catch(err => console.log("Audio play blocked:", err));
-
-        // Slide back down after 4s
         setTimeout(() => {
             usagi.classList.remove("slide-up");
             usagi.classList.add("slide-down");
         }, 4000);
     });
 
-    // Mute/Unmute Button functionality
+    // Mute Button
     muteButton.addEventListener("click", () => {
-        bgm.muted = !bgm.muted;  // Toggle mute
-        muteButton.textContent = bgm.muted ? "🔇" : "🔈";  // Toggle button text
+        bgm.muted = !bgm.muted;
+        muteButton.textContent = bgm.muted ? "🔇" : "🔈";
     });
+
+    // --- NEW: Timezone + Local Event Time ---
+    function updateTimezoneInfo() {
+        const timezoneInfo = document.getElementById("timezoneInfo");
+
+        const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
+
+        const eventLocalString = eventDatePST.toLocaleString([], {
+            dateStyle: "full",
+            timeStyle: "short"
+        });
+
+        timezoneInfo.innerHTML =
+            `Your Time Zone: <b>${userTZ}</b><br>` +
+            `Presentation Time in Your Local Time: <b>${eventLocalString}</b>`;
+    }
+
+    updateTimezoneInfo();
 </script>
 
 </body>
