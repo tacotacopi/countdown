@@ -45,23 +45,43 @@
         }
 
         /* Usagi GIF styles */
-    #usagi {
-        position: fixed;
-        bottom: -300px;
-        right: 20px;
-        width: 200px;
-        z-index: 9999;
-        background: rgba(0,0,0,0);
-        transition: transform 0.5s ease; /* Transitioning transform for smoother animation */
-    }
+        #usagi {
+            position: fixed;
+            bottom: -300px;
+            right: 20px;
+            width: 200px;
+            z-index: 9999;
+            background: rgba(0,0,0,0);
+            transition: transform 0.5s ease; /* Transitioning transform for smoother animation */
+        }
 
-    .slide-up {
-        transform: translateY(-320px); /* Moves the GIF up */
-    }
+        .slide-up {
+            transform: translateY(-320px); /* Moves the GIF up */
+        }
 
-    .slide-down {
-        transform: translateY(300px); /* Moves it back down */
-    }
+        .slide-down {
+            transform: translateY(300px); /* Moves it back down */
+        }
+
+        /* Mute Button Styles */
+        #muteButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            z-index: 10000;
+        }
+
+        #muteButton:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
     </style>
 </head>
 <body>
@@ -80,10 +100,14 @@
     <!-- Usagi GIF (hidden by default) -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
 
+    <!-- Mute Button -->
+    <button id="muteButton">Mute Music</button>
+
 <script>
     const bgm = document.getElementById("bgm");
     const usagi = document.getElementById("usagi");
     const countdownText = document.getElementById("countdown");
+    const muteButton = document.getElementById("muteButton");
 
     // NEW: Multiple Chirp sounds
     const chirps = [
@@ -146,6 +170,12 @@
             usagi.classList.remove("slide-up");
             usagi.classList.add("slide-down");
         }, 4000);
+    });
+
+    // Mute/Unmute Button functionality
+    muteButton.addEventListener("click", () => {
+        bgm.muted = !bgm.muted;  // Toggle mute
+        muteButton.textContent = bgm.muted ? "Unmute Music" : "Mute Music";  // Toggle button text
     });
 </script>
 
