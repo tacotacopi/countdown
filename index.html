@@ -64,6 +64,18 @@
             transform: translateY(300px); /* Moves it back down */
         }
 
+        /* Usagi GIF for the new "uh.gif" */
+        #uh {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.5s ease; /* Smooth opacity transition */
+        }
+
         /* Mute Button Styles */
         #muteButton {
             position: fixed;
@@ -101,6 +113,9 @@
     <!-- Usagi GIF (hidden by default) -->
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
 
+    <!-- New UH GIF -->
+    <img id="uh" src="uh.gif" alt="UH GIF">
+
     <!-- Mute Button -->
     <button id="muteButton">🔇</button>
 
@@ -109,6 +124,7 @@
     const usagi = document.getElementById("usagi");
     const countdownText = document.getElementById("countdown");
     const muteButton = document.getElementById("muteButton");
+    const uhGif = document.getElementById("uh");  // UH GIF element
 
     // NEW: Multiple Chirp sounds
     const chirps = [
@@ -178,6 +194,29 @@
         bgm.muted = !bgm.muted;  // Toggle mute
         muteButton.textContent = bgm.muted ? "🔇" : "🔈";  // Toggle button text
     });
+
+    // Handle "D" key double press for "uh.gif"
+    let lastPressTime = 0;
+    const doublePressThreshold = 500;  // 500 ms to consider as double press
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key.toLowerCase() === "d") {
+            const currentTime = Date.now();
+
+            if (currentTime - lastPressTime <= doublePressThreshold) {
+                // Double press detected, show uh.gif for 3 seconds
+                uhGif.style.opacity = 1;  // Show the UH GIF
+
+                // Hide it after 3 seconds with smooth transition
+                setTimeout(() => {
+                    uhGif.style.opacity = 0;  // Smooth fade out
+                }, 3000);
+            }
+
+            lastPressTime = currentTime;
+        }
+    });
+
 </script>
 
 </body>
