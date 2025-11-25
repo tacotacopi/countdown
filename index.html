@@ -1,350 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>iiSU.lol</title>
+<meta charset="UTF-8">
+<title>iiSU.lol</title>
 
-    <style>
-        @font-face {
-            font-family: 'ContinuumMedium';
-            src: url('ContinuumMedium.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
+<style>
+/* ---------------------- FONT ---------------------- */
+@font-face {
+    font-family: 'ContinuumMedium';
+    src: url('ContinuumMedium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        body {
-            background: #111;
-            color: #fff;
-            font-family: 'ContinuumMedium', sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            opacity: 0;
-            animation: fadeIn 1.2s ease forwards;
-        }
+/* ---------------------- GLOBAL ---------------------- */
+body {
+    background: #111;
+    color: #fff;
+    font-family: 'ContinuumMedium', sans-serif;
+    text-align: center;
+    padding-top: 40px;
+    margin: 0;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        h1 {
-            font-size: 48px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
+h1 {
+    font-size: 48px;
+    margin: 20px 0 10px 0;
+    cursor: pointer;
+}
 
-        .subtitle {
-            font-size: 18px;
-            color: #bbb;
-            margin-bottom: 40px;
-        }
+.subtitle {
+    font-size: 18px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
 
-        /* NEW — wrapper for blossoms */
-        #countdown-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+/* ---------------------- LOGO ---------------------- */
+img.logo {
+    width: 250px;
+    max-width: 70%;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
 
-        #countdown {
-            font-size: 36px;
-            letter-spacing: 2px;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            position: relative;
-            z-index: 10;
-            display: inline-block;
-            text-shadow: 0 0 15px rgba(255,150,200,0.8);
-        }
+/* ---------------------- COUNTDOWN ---------------------- */
+#countdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
-        /* Blossom float animation (still used for the ::after icon) */
-        #countdown::after {
-            content: "";
-            position: absolute;
-            right: -60px;
-            top: -10px;
-            font-size: 24px;
-            animation: blossomFloat 3s ease-in-out infinite;
-        }
+#countdown {
+    font-size: 36px;
+    letter-spacing: 2px;
+    margin: -10px 0 20px 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    text-shadow: 0 0 15px rgba(255,150,200,0.8);
+}
 
-        @keyframes blossomFloat {
-            0%   { transform: translateY(0px) rotate(0deg); }
-            50%  { transform: translateY(-8px) rotate(8deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
+#countdown::after {
+    content: "";
+    position: absolute;
+    right: -60px;
+    top: -10px;
+    font-size: 24px;
+    animation: blossomFloat 3s ease-in-out infinite;
+}
 
-        img.logo {
-            width: 250px;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
+@keyframes blossomFloat {
+    0% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-8px) rotate(8deg); }
+    100% { transform: translateY(0) rotate(0); }
+}
 
-        /* ---- PANELS ---- */
-        .panel-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 40px auto;
-            flex-wrap: wrap;
-        }
+/* ---------------------- PANELS ---------------------- */
+.panel-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px auto;
+    flex-wrap: wrap;
+    max-width: 1000px;
+}
 
-        .panel {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            padding: 25px;
-            border-radius: 12px;
-            width: 340px;
-            text-align: left;
-            box-shadow: 0 0 25px rgba(0,0,0,0.4);
-            animation: fadeIn 1.2s ease forwards;
-            display: flex;
-            flex-direction: column;
-        }
+.panel {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 12px;
+    width: 340px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
 
-        .panel-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .panel-header img {
-            width: 32px;
-            height: 32px;
-        }
+.panel-header img {
+    width: 32px;
+    height: 32px;
+}
 
-        .panel-header h2 {
-            margin: 0;
-            color: #73b7ff;
-            font-size: 22px;
-        }
+.panel-header h2 {
+    color: #73b7ff;
+    font-size: 22px;
+    margin: 0;
+}
 
-        .panel ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
+.panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
 
-        .panel ul li {
-            margin: 8px 0;
-            color: #ccc;
-        }
+.panel ul li {
+    margin: 8px 0;
+    color: #ccc;
+}
 
-        .price {
-            margin-top: 15px;
-            font-size: 18px;
-            color: #fff;
-            font-weight: bold;
-        }
+.price {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
 
-        /* ---- Usagi ---- */
-        #usagi {
-            position: fixed;
-            bottom: -300px;
-            right: 20px;
-            width: 200px;
-            z-index: 9999;
-            background: rgba(0,0,0,0);
-            transition: transform 0.5s ease;
-        }
+/* ---------------------- MOBILE PANEL FIX ---------------------- */
+@media (max-width: 480px) {
+    .panel {
+        width: 90%;
+        padding: 20px;
+    }
+    #countdown { font-size: 28px; }
+    h1 { font-size: 32px; }
+}
 
-        .slide-up { transform: translateY(-320px); }
-        .slide-down { transform: translateY(300px); }
+/* ---------------------- AUDIO / BUTTONS ---------------------- */
+#muteButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    z-index: 10000;
+}
 
-        #muteButton {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 5px;
-            z-index: 10000;
-        }
+/* ---------------------- USAGI ---------------------- */
+#usagi {
+    position: fixed;
+    bottom: -300px;
+    right: 20px;
+    width: 200px;
+    z-index: 9999;
+    transition: transform 0.5s ease;
+    background: transparent;
+}
 
-        #peam {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.6s ease;
-            z-index: 10001;
-        }
+.slide-up { transform: translateY(-320px); }
+.slide-down { transform: translateY(300px); }
 
-        #peam.show { opacity: 1; }
+/* ---------------------- PEAM POP ---------------------- */
+#peam {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    z-index: 10001;
+}
 
-        /* NEW — blossoms inside countdown */
-        @keyframes blossomFall {
-            0% {
-                transform: translateY(-20px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(60px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+#peam.show { opacity: 1; }
 
-        .blossom {
-            position: absolute;
-            font-size: 20px;
-            pointer-events: none;
-            z-index: 5; /* behind countdown text */
-        }
-    </style>
+/* ---------------------- BLOSSOMS ---------------------- */
+@keyframes blossomFall {
+    0%   { transform: translateY(-20px) rotate(0); opacity: 1; }
+    100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+
+.blossom {
+    position: absolute;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 5;
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Background Music -->
-    <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
+<audio id="bgm" src="music.mp3" autoplay loop muted></audio>
 
-    <img src="iisu.png" class="logo" alt="iiSU Logo">
+<img src="iisu.png" class="logo" alt="iiSU Logo">
+<h1>iiSU Presentation</h1>
+<p class="subtitle">Unofficial Website.</p>
 
-    <h1>iiSU Presentation</h1>
-    <p class="subtitle">Unofficial Website.</p>
+<div id="countdown-wrapper">
+    <div id="countdown">Spring 2026</div>
+</div>
 
-    <!-- NEW — wrapper around countdown -->
-    <div id="countdown-wrapper">
-        <div id="countdown">Spring 2026</div>
-    </div>
-
-    <!-- INSERTED PANELS WITH ICONS -->
-    <div class="panel-container">
-
-        <div class="panel">
-            <div class="panel-header">
-                <img src="icon2.png" alt="Premium Icon">
-                <h2>Premium iiSU Editions</h2>
-            </div>
-            <ul>
-                <li>• Full customization & Theme support</li>
-                <li>• Extra widget pages and profile showcases</li>
-                <li>• Share creations through Shopii</li>
-                <li>• Premium Badge</li>
-            </ul>
-            <div class="price">Price: <a href="https://ko-fi.com/usagishade" target="_blank" style="color:#73b7ff; text-decoration:underline;">$4.99 (one-time)</a></div>
+<!-- PANELS -->
+<div class="panel-container">
+    <div class="panel">
+        <div class="panel-header">
+            <img src="icon2.png">
+            <h2>Premium iiSU Editions</h2>
         </div>
-
-        <div class="panel">
-            <div class="panel-header">
-                <img src="icon1.png" alt="Base Icon">
-                <h2>Base iiSU Experience</h2>
-            </div>
-            <ul>
-                <li>• Complete launcher functionality</li>
-                <li>• Customize all of your game assets</li>
-                <li>• Online Connectivity</li>
-                <li>• Absolutely NO Ads</li>
-            </ul>
-            <div class="price">Price: FREE</div>
+        <ul>
+            <li>• Full customization & Theme support</li>
+            <li>• Extra widget pages and profile showcases</li>
+            <li>• Share creations through Shopii</li>
+            <li>• Premium Badge</li>
+        </ul>
+        <div class="price">Price: 
+            <a href="https://ko-fi.com/usagishade" target="_blank" style="color:#73b7ff;">$4.99 (one-time)</a>
         </div>
-
     </div>
 
-    <!-- YouTube -->
-    <div id="videoEmbed" style="margin-bottom: 40px;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/bpTpCR1IUts"
-                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+    <div class="panel">
+        <div class="panel-header">
+            <img src="icon1.png">
+            <h2>Base iiSU Experience</h2>
+        </div>
+        <ul>
+            <li>• Complete launcher functionality</li>
+            <li>• Customize all of your game assets</li>
+            <li>• Online Connectivity</li>
+            <li>• Absolutely NO Ads</li>
+        </ul>
+        <div class="price">Price: FREE</div>
     </div>
+</div>
 
-    <img id="usagi" src="usagi.gif" alt="Usagi GIF">
-    <img id="peam" src="peam.png" alt="Peam png">
+<!-- VIDEO -->
+<div style="margin-bottom: 40px;">
+<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/bpTpCR1IUts"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+</div>
 
-    <button id="muteButton">🔇</button>
+<img id="usagi" src="usagi.gif">
+<img id="peam" src="peam.png">
+
+<button id="muteButton">🔇</button>
 
 <script>
-    const bgm = document.getElementById("bgm");
-    const usagi = document.getElementById("usagi");
-    const countdownText = document.getElementById("countdown");
-    const muteButton = document.getElementById("muteButton");
+/* ----------------------------------------------------------
+   AUDIO + CHIRPS
+----------------------------------------------------------- */
+const bgm = document.getElementById("bgm");
+const muteButton = document.getElementById("muteButton");
+const usagi = document.getElementById("usagi");
+const countdownText = document.getElementById("countdown");
 
-    const chirps = [ new Audio("chirper1.ogg"), new Audio("chirper2.ogg"), new Audio("chirper3.ogg") ];
-    chirps.forEach(chirp => { chirp.preload = "auto"; chirp.load(); });
+const chirps = [
+    new Audio("chirper1.ogg"),
+    new Audio("chirper2.ogg"),
+    new Audio("chirper3.ogg")
+];
 
-    function enableAudioOnce() {
-        bgm.muted = false;
-        bgm.volume = 1.0;
-        bgm.play();
-        document.removeEventListener("click", enableAudioOnce);
-    }
-    document.addEventListener("click", enableAudioOnce, { once: true });
+chirps.forEach(c => { c.preload = "auto"; });
 
-    document.querySelector(".logo").addEventListener("click", () => {
-        usagi.classList.remove("slide-down");
-        usagi.classList.add("slide-up");
+function enableAudioOnce() {
+    bgm.muted = false;
+    bgm.volume = 1.0;
+    bgm.play();
+    document.removeEventListener("click", enableAudioOnce);
+}
+document.addEventListener("click", enableAudioOnce, { once: true });
 
-        const chirp = chirps[Math.floor(Math.random() * chirps.length)];
-        chirp.currentTime = 0;
-        chirp.play().catch(() => {});
+muteButton.addEventListener("click", () => {
+    bgm.muted = !bgm.muted;
+    muteButton.textContent = bgm.muted ? "🔇" : "🔈";
+});
 
-        setTimeout(() => {
-            usagi.classList.remove("slide-up");
-            usagi.classList.add("slide-down");
-        }, 4000);
+/* ----------------------------------------------------------
+   USAGI POP-UP
+----------------------------------------------------------- */
+document.querySelector(".logo").addEventListener("click", () => {
+    usagi.classList.remove("slide-down");
+    usagi.classList.add("slide-up");
+
+    const chirp = chirps[Math.floor(Math.random() * chirps.length)];
+    chirp.currentTime = 0;
+    chirp.play().catch(()=>{});
+
+    setTimeout(() => {
+        usagi.classList.remove("slide-up");
+        usagi.classList.add("slide-down");
+    }, 4000);
+});
+
+/* ----------------------------------------------------------
+   FALLING PEAM
+----------------------------------------------------------- */
+function spawnFallingPeam() {
+    const img = document.createElement("img");
+    img.src = "peam.png";
+    img.style.position = "fixed";
+    img.style.width = "80px";
+    img.style.left = (Math.random() * (window.innerWidth - 80)) + "px";
+    img.style.top = "-120px";
+    img.style.zIndex = 20000;
+    img.style.opacity = "1";
+    img.style.transition = "transform 2.2s ease-in, opacity 1s ease-in 1.5s";
+    document.body.appendChild(img);
+
+    requestAnimationFrame(() => {
+        img.style.transform = `translateY(${window.innerHeight + 200}px) rotate(${Math.random()*60 - 30}deg)`;
+        img.style.opacity = "0";
     });
 
-    muteButton.addEventListener("click", () => {
-        bgm.muted = !bgm.muted;
-        muteButton.textContent = bgm.muted ? "🔇" : "🔈";
-    });
+    setTimeout(() => img.remove(), 2500);
+}
 
-    function spawnFallingPeam() {
-        const img = document.createElement("img");
-        img.src = "peam.png";
-        img.style.position = "fixed";
-        img.style.width = "80px";
-        img.style.left = (Math.random() * (window.innerWidth - 80)) + "px";
-        img.style.top = "-120px";
-        img.style.zIndex = 20000;
-        img.style.transition = "transform 2.2s ease-in, opacity 1s ease-in 1.5s";
+/* ----------------------------------------------------------
+   BLOSSOMS BEHIND COUNTDOWN
+----------------------------------------------------------- */
+function spawnBlossom() {
+    const wrapper = document.getElementById("countdown-wrapper");
+    const blossom = document.createElement("div");
+    blossom.className = "blossom";
 
-        document.body.appendChild(img);
+    const emojis = ["🌺","🌸","🌿","🌼","🍃"];
+    blossom.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-        requestAnimationFrame(() => {
-            img.style.transform = `translateY(${window.innerHeight + 200}px) rotate(${Math.random()*60 - 30}deg)`;
-            img.style.opacity = "0";
-        });
+    blossom.style.left = (Math.random() * wrapper.offsetWidth) + "px";
+    blossom.style.top = "-20px";
+    blossom.style.animation = "blossomFall 4s linear forwards";
 
-        setTimeout(() => img.remove(), 2500);
+    wrapper.appendChild(blossom);
+    setTimeout(() => blossom.remove(), 4000);
+}
+setInterval(spawnBlossom, 1300);
+
+/* ----------------------------------------------------------
+   CLICK COUNTDOWN = FALLING PEAM BURST
+----------------------------------------------------------- */
+countdownText.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const burst = 6 + Math.floor(Math.random() * 5);
+    for (let i = 0; i < burst; i++) {
+        setTimeout(spawnFallingPeam, i * 120);
     }
-
-    /* NEW — blossoms only behind countdown */
-    function spawnBlossom() {
-        const wrapper = document.getElementById("countdown-wrapper");
-
-        const blossom = document.createElement("div");
-        blossom.className = "blossom";
-
-        const emojis = ["🌺","🌸","🌿","🌼","🍃"];
-        blossom.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-        blossom.style.left = (Math.random() * wrapper.offsetWidth) + "px";
-        blossom.style.top = "-20px";
-        blossom.style.animation = "blossomFall 4s linear forwards";
-
-        wrapper.appendChild(blossom);
-
-        setTimeout(() => blossom.remove(), 4000);
-    }
-
-    setInterval(spawnBlossom, 1300);
-
-    countdownText.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const burst = 6 + Math.floor(Math.random() * 5);
-        for (let i = 0; i < burst; i++) {
-            setTimeout(spawnFallingPeam, i * 120);
-        }
-    });
+});
 </script>
 
 </body>
