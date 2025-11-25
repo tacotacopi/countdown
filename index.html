@@ -88,17 +88,17 @@
         }
 
         /* ---- PEAM POPUP ---- */
-#peam {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s ease;
-    z-index: 10001;
-}
+        #peam {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            z-index: 10001;
+        }
 
         #peam.show {
             opacity: 1;
@@ -118,7 +118,12 @@
 
     <div id="countdown">Loading...</div>
 
-    <div id="timezoneInfo">finding your time zone...</div>
+    <!-- YouTube Embed -->
+    <div id="videoEmbed" style="margin-bottom: 40px;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/bpTpCR1IUts" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+    </div>
 
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
     
@@ -190,38 +195,6 @@
         muteButton.textContent = bgm.muted ? "🔇" : "🔈";
     });
 
-    function updateTimezoneInfo() {
-        const timezoneInfo = document.getElementById("timezoneInfo");
-
-        const eventDatePST = new Date("2025-11-25T09:00:00-08:00");
-        const now = new Date();
-        const timeLeft = eventDatePST - now;
-
-        const eventLocalString = eventDatePST.toLocaleString([], {
-            dateStyle: "full",
-            timeStyle: "short"
-        });
-
-        timezoneInfo.innerHTML =
-            `Presentation Time in Your Local Time:<br><b>${eventLocalString}</b>`;
-
-        if (timeLeft <= 0) {
-            timezoneInfo.style.color = "#4aff4a";
-            timezoneInfo.innerHTML = "The presentation has started!";
-        } else if (timeLeft < 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ff4a4a";
-        } else if (timeLeft < 24 * 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ff9e4a";
-        } else if (timeLeft < 7 * 24 * 60 * 60 * 1000) {
-            timezoneInfo.style.color = "#ffda6b";
-        } else {
-            timezoneInfo.style.color = "#ccc";
-        }
-    }
-
-    updateTimezoneInfo();
-    setInterval(updateTimezoneInfo, 1000);
-
     function spawnFallingPeam() {
         const img = document.createElement("img");
         img.src = "peam.png";
@@ -256,17 +229,12 @@
 
     // When you click the countdown, spawn a BURST of peams
     countdownText.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    const burstCount = 6 + Math.floor(Math.random() * 5);
-    for (let i = 0; i < burstCount; i++) {
-        setTimeout(spawnFallingPeam, i * 120);
-    }
-});
-
-    
-    let clickCount = 0;
-    let peamShown = false;
-    const peam = document.getElementById("peam");
+        e.stopPropagation(); 
+        const burstCount = 6 + Math.floor(Math.random() * 5);
+        for (let i = 0; i < burstCount; i++) {
+            setTimeout(spawnFallingPeam, i * 120);
+        }
+    });
 
 </script>
 
