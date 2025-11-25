@@ -31,7 +31,18 @@
             font-size: 18px;
             color: #bbb;
             margin-bottom: 40px;
-            cursor: pointer;
+        }
+
+        #countdown {
+            font-size: 36px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        #timezoneInfo {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 40px;
         }
 
         img.logo {
@@ -75,6 +86,23 @@
         #muteButton:hover {
             background-color: rgba(0, 0, 0, 0.8);
         }
+
+        /* ---- PEAM POPUP ---- */
+        #peam {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            z-index: 10001;
+        }
+
+        #peam.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -85,8 +113,10 @@
     <!-- Logo -->
     <img src="iisu.png" class="logo" alt="iiSU Logo">
 
-    <h1>iiSU Presentation</h1>
+    <h1>iiSU Presentation Countdown</h1>
     <p class="subtitle">Unofficial Website.</p>
+
+    <div id="countdown">Loading...</div>
 
     <!-- YouTube Embed -->
     <div id="videoEmbed" style="margin-bottom: 40px;">
@@ -97,13 +127,14 @@
 
     <img id="usagi" src="usagi.gif" alt="Usagi GIF">
     
-    <img id="peam" src="peam.png" alt="Peam png" style="display:none;>
+    <img id="peam" src="peam.png" alt="Peam png">
 
     <button id="muteButton">🔇</button>
 
 <script>
     const bgm = document.getElementById("bgm");
     const usagi = document.getElementById("usagi");
+    const countdownText = document.getElementById("countdown");
     const muteButton = document.getElementById("muteButton");
 
     const chirps = [
@@ -112,6 +143,28 @@
         new Audio("chirper3.ogg")
     ];
     chirps.forEach(chirp => { chirp.preload = "auto"; chirp.load(); });
+
+    const targetDate = new Date("2025-11-25T09:00:00-08:00").getTime();
+
+    function updateCountdown() {
+        const now = Date.now();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+            countdownText.innerHTML = "The presentation has started!";
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        countdownText.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
     // Enable audio on first click
     function enableAudioOnce() {
@@ -148,36 +201,43 @@
         img.style.position = "fixed";
         img.style.width = "80px";
 
+        // Random X across the entire top border
         const x = Math.random() * (window.innerWidth - 80);
         img.style.left = x + "px";
-        img.style.top = "-120px";
+        img.style.top = "-120px"; // start slightly off screen
+
         img.style.zIndex = 20000;
 
+        // Animation styles
         img.style.transition = "transform 2.2s ease-in, opacity 1s ease-in 1.5s";
 
         document.body.appendChild(img);
 
+        // Let browser place it before animating
         requestAnimationFrame(() => {
+            // Fall distance
             const fallDistance = window.innerHeight + 200;
             img.style.transform = `translateY(${fallDistance}px) rotate(${Math.random()*60 - 30}deg)`;
             img.style.opacity = "0";
         });
 
+        // Remove after animation
         setTimeout(() => {
             img.remove();
         }, 2500);
     }
 
-    // Trigger peam rain when clicking "Unofficial Website."
-    document.querySelector(".subtitle").addEventListener("click", () => {
-        const burstCount = 15 + Math.floor(Math.random() * 10);
+    // When you click the countdown, spawn a BURST of peams
+    countdownText.addEventListener("click", (e) => {
+        e.stopPropagation(); 
+        const burstCount = 6 + Math.floor(Math.random() * 5);
         for (let i = 0; i < burstCount; i++) {
-            setTimeout(spawnFallingPeam, i * 100);
+            setTimeout(spawnFallingPeam, i * 120);
         }
     });
 
 </script>
 
+
 </body>
 </html>
-
