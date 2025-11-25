@@ -46,6 +46,25 @@
             margin-top: -10px;
             margin-bottom: 20px;
             cursor: pointer;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(255,150,200,0.8);
+        }
+
+        /* Blossom float animation */
+        #countdown::after {
+            content: "";
+            position: absolute;
+            right: -60px;
+            top: -10px;
+            font-size: 24px;
+            animation: blossomFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes blossomFloat {
+            0%   { transform: translateY(0px) rotate(0deg); }
+            50%  { transform: translateY(-8px) rotate(8deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
         img.logo {
@@ -153,7 +172,27 @@
         }
 
         #peam.show { opacity: 1; }
-    </style>
+        /* Blossom falling animation */
+    @keyframes blossomFall {
+        0% {
+            transform: translateY(-50px) translateX(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(300px) translateX(40px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .blossom {
+        position: absolute;
+        top: 0;
+        font-size: 20px;
+        pointer-events: none;
+        animation: blossomFall 4s linear forwards;
+        z-index: 5;
+    }
+</style>
 </head>
 <body>
 
@@ -268,6 +307,25 @@
         setTimeout(() => img.remove(), 2500);
     }
 
+    function spawnBlossom() {
+        const blossom = document.createElement("div");
+        blossom.className = "blossom";
+
+        const emojis = ["🌺","🌸","🌿","🌼","🍃"];
+        blossom.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        const rect = countdownText.getBoundingClientRect();
+        const x = rect.left + Math.random() * rect.width;
+
+        blossom.style.left = x + "px";
+        blossom.style.top = (rect.top - 20) + "px";
+
+        document.body.appendChild(blossom);
+        setTimeout(() => blossom.remove(), 4000);
+    }
+
+    setInterval(spawnBlossom, 1300);
+
     countdownText.addEventListener("click", (e) => {
         e.stopPropagation();
         const burst = 6 + Math.floor(Math.random() * 5);
@@ -279,5 +337,3 @@
 
 </body>
 </html>
-
-
