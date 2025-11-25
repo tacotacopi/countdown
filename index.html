@@ -72,10 +72,24 @@
             text-align: left;
             box-shadow: 0 0 25px rgba(0,0,0,0.4);
             animation: fadeIn 1.2s ease forwards;
+            display: flex;
+            flex-direction: column;
         }
 
-        .panel h2 {
-            margin-top: 0;
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .panel-header img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
             color: #73b7ff;
             font-size: 22px;
         }
@@ -153,10 +167,14 @@
 
     <div id="countdown">Spring 2026</div>
 
-    <!-- INSERTED PANELS -->
+    <!-- INSERTED PANELS WITH ICONS -->
     <div class="panel-container">
+
         <div class="panel">
-            <h2>Premium iiSU Editions</h2>
+            <div class="panel-header">
+                <img src="icon2.jpeg" alt="Premium Icon">
+                <h2>Premium iiSU Editions</h2>
+            </div>
             <ul>
                 <li>• Full customization & Theme support</li>
                 <li>• Extra widget pages and profile showcases</li>
@@ -167,7 +185,10 @@
         </div>
 
         <div class="panel">
-            <h2>Base iiSU Experience</h2>
+            <div class="panel-header">
+                <img src="icon1.png" alt="Base Icon">
+                <h2>Base iiSU Experience</h2>
+            </div>
             <ul>
                 <li>• Complete launcher functionality</li>
                 <li>• Customize all of your game assets</li>
@@ -176,6 +197,7 @@
             </ul>
             <div class="price">Price: FREE</div>
         </div>
+
     </div>
 
     <!-- YouTube -->
