@@ -1,0 +1,16 @@
+[
+    {
+        "name": "ThorCYP",
+        "author": "the_swest",
+        "github": "https://github.com/theswest/ThorCPY",
+        "icon": "https://raw.githubusercontent.com/theswest/ThorCPY/refs/heads/master/assets/icon.png",
+        "description": "A collection of custom themes for iiSU including dark mode variations, colorful designs, and minimalist layouts."
+    },
+    {
+        "name": "iiSU Asset Tool",
+        "author": "VK",
+        "github": "https://github.com/viik4/iisu-asset-tool",
+        "icon": "https://raw.githubusercontent.com/viik4/iisu-asset-tool/4f4dcfceb5863cf686ca28cb9c38a1222ea5f5f2/logo.png",
+        "description": "Extended RetroAchievements integration with custom badges, progress tracking, and achievement notifications."
+    }
+]
