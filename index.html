@@ -822,24 +822,6 @@ function loadFanProjects() {
     // Use jsDelivr CDN - much more reliable than CORS proxies
     const fetchUrl = 'https://cdn.jsdelivr.net/gh/tacotacopi/countdown@main/fan-projects.json';
     
-    fetch(fetchUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(projects => {
-            displayProjects(projects);
-        })
-        .catch(error => {
-            console.error('Error loading fan projects:', error);
-            fanProjectsGrid.innerHTML = `
-                <div class="error-message">
-                    <p>Failed to load projects.</p>
-                    <p style="font-size: 14px; margin-top: 8px;">Error: ${error.message}</p>
-                </div>
-            `;
 }
 
         fetch(fetchUrl)
