@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark" style="color-scheme: dark;">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>iiSU.lol</title>
+<link rel="icon" href="https://iisu.network/favicon.png">
 
 <style>
 /* ---------------------- FONT ---------------------- */
@@ -14,53 +16,105 @@
 }
 
 /* ---------------------- GLOBAL ---------------------- */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: #111;
-    color: #fff;
-    font-family: 'ContinuumMedium', sans-serif;
+    background: #0a0a0a;
+    background-image: 
+        radial-gradient(circle, rgba(40, 40, 45, 0.5) 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    color: #e4e4e7;
+    font-family: 'ContinuumMedium', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     text-align: center;
-    padding-top: 40px;
+    padding: 0;
     margin: 0;
     opacity: 0;
     animation: fadeIn 1.2s ease forwards;
+    min-height: 100vh;
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px 100px;
+}
+
 h1 {
-    font-size: 48px;
+    font-size: 56px;
     margin: 20px 0 10px 0;
     cursor: pointer;
+    font-weight: 600;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
-    font-size: 18px;
-    color: #bbb;
-    margin-bottom: 20px;
+    font-size: 16px;
+    color: #71717a;
+    margin-bottom: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.version {
+    font-size: 14px;
+    color: #a1a1aa;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.version a {
+    color: #93c5fd;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.version a:hover {
+    color: #bfdbfe;
+    text-decoration: underline;
 }
 
 /* ---------------------- LOGO ---------------------- */
 img.logo {
-    width: 250px;
+    width: 220px;
     max-width: 70%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     cursor: pointer;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+    transition: filter 0.3s ease;
+}
+
+img.logo:hover {
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.2));
 }
 
 /* ---------------------- COUNTDOWN ---------------------- */
 #countdown-wrapper {
     position: relative;
     display: inline-block;
+    margin: 20px 0 40px;
 }
 
 #countdown {
-    font-size: 36px;
-    letter-spacing: 2px;
-    margin: -10px 0 20px 0;
+    font-size: 42px;
+    letter-spacing: 1px;
+    margin: 0;
     cursor: pointer;
     position: relative;
     z-index: 10;
-    text-shadow: 0 0 15px rgba(255,150,200,0.8);
+    font-weight: 500;
+    background: linear-gradient(135deg, #fda4af 0%, #fb7185 50%, #f43f5e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 #countdown::after {
@@ -82,39 +136,48 @@ img.logo {
 .panel-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin: 30px auto;
+    gap: 24px;
+    margin: 50px auto;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1100px;
 }
 
 .panel {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    padding: 25px;
-    border-radius: 12px;
-    width: 340px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, #18181b 0%, #0a0a0a 100%);
+    border: 1px solid #27272a;
+    padding: 28px;
+    border-radius: 16px;
+    width: 360px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    border-color: #3f3f46;
 }
 
 .panel-header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
 .panel-header img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
 }
 
 .panel-header h2 {
-    color: #73b7ff;
-    font-size: 22px;
+    color: #93c5fd;
+    font-size: 24px;
     margin: 0;
+    font-weight: 600;
 }
 
 .panel ul {
@@ -124,55 +187,94 @@ img.logo {
 }
 
 .panel ul li {
-    margin: 8px 0;
-    color: #ccc;
+    margin: 10px 0;
+    color: #d4d4d8;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.panel ul li::before {
+    content: "→ ";
+    color: #71717a;
+    margin-right: 8px;
 }
 
 .price {
-    margin-top: 15px;
-    font-size: 18px;
-    color: #fff;
-    font-weight: bold;
+    margin-top: auto;
+    padding-top: 20px;
+    font-size: 20px;
+    color: #fafafa;
+    font-weight: 600;
 }
 
-/* ---------------------- MOBILE PANEL FIX ---------------------- */
-@media (max-width: 480px) {
-    .panel {
-        width: 90%;
-        padding: 20px;
+/* ---------------------- MOBILE ---------------------- */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 16px 30px;
     }
-    #countdown { font-size: 28px; }
-    h1 { font-size: 32px; }
+    .panel {
+        width: 100%;
+        max-width: 400px;
+    }
+    #countdown { font-size: 32px; }
+    h1 { font-size: 40px; }
 }
 
+@media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    #countdown { font-size: 28px; }
+}
+
+
+/* ---------------------- VIX EASTER EGG ---------------------- */
+@keyframes glitchFade {
+    0% { opacity: 1; filter: none; }
+    10% { opacity: 0.8; transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+    20% { opacity: 0.6; transform: translate(2px, -2px); filter: hue-rotate(180deg); }
+    30% { opacity: 0.4; transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+    40% { opacity: 0.2; transform: translate(2px, 2px); filter: hue-rotate(360deg); }
+    50% { opacity: 0; transform: translate(0, 0); filter: none; }
+    100% { opacity: 0; }
+}
+
+@keyframes glitchIn {
+    0% { opacity: 0; transform: translate(0, 0); }
+    10% { opacity: 0.2; transform: translate(2px, -2px); filter: hue-rotate(90deg); }
+    20% { opacity: 0.4; transform: translate(-2px, 2px); filter: hue-rotate(180deg); }
+    30% { opacity: 0.6; transform: translate(2px, 2px); filter: hue-rotate(270deg); }
+    40% { opacity: 0.8; transform: translate(-2px, -2px); filter: hue-rotate(360deg); }
+    50% { opacity: 1; transform: translate(0, 0); filter: none; }
+    100% { opacity: 1; filter: none; }
+}
+
+.vix-glitch-out {
+    animation: glitchFade 0.6s ease-out forwards;
+}
+
+.vix-glitch-in {
+    animation: glitchIn 0.6s ease-out forwards;
+}
 /* ---------------------- AUDIO / BUTTONS ---------------------- */
 #muteButton {
     position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0,0,0,0.6);
+    top: 20px;
+    left: 20px;
+    background: rgba(24,24,27,0.8);
+    backdrop-filter: blur(8px);
     color: #fff;
-    border: none;
-    padding: 10px 15px;
+    border: 1px solid #27272a;
+    padding: 12px 18px;
     cursor: pointer;
-    font-size: 14px;
-    border-radius: 5px;
+    font-size: 16px;
+    border-radius: 8px;
     z-index: 10000;
+    transition: all 0.2s ease;
 }
 
-/* ---------------------- USAGI ---------------------- */
-#usagi {
-    position: fixed;
-    bottom: -300px;
-    right: 20px;
-    width: 200px;
-    z-index: 9999;
-    transition: transform 0.5s ease;
-    background: transparent;
+#muteButton:hover {
+    background: rgba(39,39,42,0.9);
+    border-color: #3f3f46;
 }
-
-.slide-up { transform: translateY(-320px); }
-.slide-down { transform: translateY(300px); }
 
 /* ---------------------- PEAM POP ---------------------- */
 #peam {
@@ -201,38 +303,459 @@ img.logo {
     pointer-events: none;
     z-index: 5;
 }
+
+/* ---------------------- MODAL ---------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background: linear-gradient(135deg, #18181b 0%, #0a0a0a 100%);
+    border: 1px solid #3f3f46;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal-overlay.show .modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(39, 39, 42, 0.8);
+    border: 1px solid #52525b;
+    color: #fafafa;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: rgba(63, 63, 70, 0.9);
+    border-color: #71717a;
+    transform: scale(1.1);
+}
+
+.modal h2 {
+    color: #fafafa;
+    font-size: 28px;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+}
+
+.modal p {
+    color: #d4d4d8;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.modal-content {
+    margin-top: 12px;
+}
+
+.modal-content p {
+    margin-bottom: 12px;
+}
+
+.modal-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------------------- BOTTOM NAV BAR ---------------------- */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(24, 24, 27, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 50px;
+    padding: 12px 24px;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 1100px;
+    width: calc(100% - 40px);
+}
+
+.bottom-nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.bottom-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bottom-nav-logo img {
+    height: 32px;
+    width: auto;
+}
+
+.bottom-nav-logo span {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fafafa;
+}
+
+.bottom-nav-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.bottom-nav-links a {
+    color: #d4d4d8;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: rgba(39, 39, 42, 0.5);
+    border: 1px solid rgba(63, 63, 70, 0.6);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.bottom-nav-links a:hover {
+    background: rgba(63, 63, 70, 0.7);
+    border-color: rgba(82, 82, 91, 0.8);
+    color: #fafafa;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        bottom: 12px;
+        width: calc(100% - 24px);
+        padding: 10px 16px;
+    }
+    
+    .bottom-nav-content {
+        flex-direction: row;
+        gap: 12px;
+    }
+    
+    .bottom-nav-logo span {
+        display: none;
+    }
+    
+    .bottom-nav-links {
+        gap: 8px;
+    }
+    
+    .bottom-nav-links a {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ---------------------- FAN PROJECTS PAGE ---------------------- */
+.fan-projects-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    background-image: 
+        radial-gradient(circle, rgba(40, 40, 45, 0.5) 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+    z-index: 10002;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.fan-projects-page.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fan-projects-header {
+    text-align: center;
+    padding: 80px 20px 40px;
+    position: relative;
+}
+
+.fan-projects-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(24, 24, 27, 0.8);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    border: 1px solid #27272a;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    z-index: 10003;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fan-projects-close:hover {
+    background: rgba(39, 39, 42, 0.9);
+    border-color: #3f3f46;
+}
+
+.fan-projects-header h1 {
+    font-size: 48px;
+    margin: 0 0 10px 0;
+    background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.fan-projects-header p {
+    font-size: 16px;
+    color: #a1a1aa;
+}
+
+.fan-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 120px;
+}
+
+.fan-project-card {
+    background: linear-gradient(135deg, #18181b 0%, #0a0a0a 100%);
+    border: 1px solid #27272a;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.fan-project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    border-color: #3f3f46;
+}
+
+.fan-project-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.fan-project-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #27272a;
+}
+
+.fan-project-title {
+    flex: 1;
+}
+
+.fan-project-title h3 {
+    color: #93c5fd;
+    font-size: 22px;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+}
+
+.fan-project-author {
+    color: #71717a;
+    font-size: 14px;
+    margin: 0;
+}
+
+.fan-project-description {
+    color: #d4d4d8;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 16px 0;
+}
+
+.fan-project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #93c5fd;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(147, 197, 253, 0.1);
+    border: 1px solid rgba(147, 197, 253, 0.2);
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.fan-project-link:hover {
+    background: rgba(147, 197, 253, 0.15);
+    border-color: rgba(147, 197, 253, 0.3);
+    transform: translateX(4px);
+}
+
+.loading-message {
+    text-align: center;
+    color: #a1a1aa;
+    font-size: 16px;
+    padding: 40px;
+}
+
+.error-message {
+    text-align: center;
+    color: #f87171;
+    font-size: 16px;
+    padding: 40px;
+}
+
+@media (max-width: 768px) {
+    .fan-projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .fan-projects-header h1 {
+        font-size: 36px;
+    }
+}
 </style>
 </head>
 
 <body>
 
+<audio id="bgm" src="music.mp3" autoplay loop muted></audio>
 
+<div class="container">
+    <img src="iisu.png" class="logo" alt="iiSU Logo">
+    <h1>iiSU.lol</h1>
+    <p class="subtitle">Unofficial Website.</p>
+    <p class="version">Latest Release: <a href="https://github.com/iisu-network/iiSU/releases" target="_blank" id="version-link">Loading...</a></p>
 
-<img src="iisu.png" class="logo" alt="iiSU Logo">
-<h1>Postponed</h1>
+    <div id="countdown-wrapper">
+        <div id="countdown">Spring 2026</div>
+    </div>
+</div>
 
-
-<img id="usagi" src="usagi.gif">
 <img id="peam" src="peam.png">
+
+<!-- Modal Popup -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <button class="modal-close" id="modalClose">×</button>
+        <h2>What is iiSU?</h2>
+        <div class="modal-content">
+            <p>iiSU is a dual-screen optimized Android launcher built for handheld gaming devices like the AYANEO Pocket DS, Pocket ACE, Pocket DMG, OneXPlayer Sugar, AYN Thor, and Retroid Pocket 5 with the RDS Add-On.</p>
+            <p>It features RetroAchievements integration, customizable layouts, multiple display modes, and support for all standalone emulators.</p>
+            <p>Currently in Alpha development, iiSU is actively being improved with community feedback and support.</p>
+        </div>
+    </div>
+</div>
 
 <button id="muteButton">🔇</button>
 
 <script>
-/* ----------------------------------------------------------
-   AUDIO + CHIRPS
------------------------------------------------------------ */
+// get github status
+async function fetchLatestVersion() {
+    try {
+        const response = await fetch('https://api.github.com/repos/iisu-network/iiSU/releases/latest');
+        const data = await response.json();
+        const versionLink = document.getElementById('version-link');
+        
+        if (data.tag_name) {
+            versionLink.textContent = `Alpha ${data.tag_name}`;
+        } else {
+            versionLink.textContent = 'Check Releases';
+        }
+    } catch (error) {
+        console.error('Failed to fetch version:', error);
+        document.getElementById('version-link').textContent = 'Check Releases';
+    }
+}
+
+// Fetch version on page load
+fetchLatestVersion();
+
+// bar
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+const logo = document.querySelector('.logo');
+
+// Open modal when clicking logo
+logo.addEventListener('click', () => {
+    modalOverlay.classList.add('show');
+});
+
+// Close modal when clicking X button
+modalClose.addEventListener('click', () => {
+    modalOverlay.classList.remove('show');
+});
+
+// Close modal when clicking outside
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('show');
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('show')) {
+        modalOverlay.classList.remove('show');
+    }
+});
+
+// audio
 const bgm = document.getElementById("bgm");
 const muteButton = document.getElementById("muteButton");
-const usagi = document.getElementById("usagi");
 const countdownText = document.getElementById("countdown");
-
-const chirps = [
-    new Audio("chirper1.ogg"),
-    new Audio("chirper2.ogg"),
-    new Audio("chirper3.ogg")
-];
-
-chirps.forEach(c => { c.preload = "auto"; });
 
 function enableAudioOnce() {
     bgm.muted = false;
@@ -247,49 +770,8 @@ muteButton.addEventListener("click", () => {
     muteButton.textContent = bgm.muted ? "🔇" : "🔈";
 });
 
-/* ----------------------------------------------------------
-   USAGI POP-UP
------------------------------------------------------------ */
-document.querySelector(".logo").addEventListener("click", () => {
-    usagi.classList.remove("slide-down");
-    usagi.classList.add("slide-up");
 
-    const chirp = chirps[Math.floor(Math.random() * chirps.length)];
-    chirp.currentTime = 0;
-    chirp.play().catch(()=>{});
-
-    setTimeout(() => {
-        usagi.classList.remove("slide-up");
-        usagi.classList.add("slide-down");
-    }, 4000);
-});
-
-/* ----------------------------------------------------------
-   FALLING PEAM
------------------------------------------------------------ */
-function spawnFallingPeam() {
-    const img = document.createElement("img");
-    img.src = "peam.png";
-    img.style.position = "fixed";
-    img.style.width = "80px";
-    img.style.left = (Math.random() * (window.innerWidth - 80)) + "px";
-    img.style.top = "-120px";
-    img.style.zIndex = 20000;
-    img.style.opacity = "1";
-    img.style.transition = "transform 2.2s ease-in, opacity 1s ease-in 1.5s";
-    document.body.appendChild(img);
-
-    requestAnimationFrame(() => {
-        img.style.transform = `translateY(${window.innerHeight + 200}px) rotate(${Math.random()*60 - 30}deg)`;
-        img.style.opacity = "0";
-    });
-
-    setTimeout(() => img.remove(), 2500);
-}
-
-/* ----------------------------------------------------------
-   BLOSSOMS BEHIND COUNTDOWN
------------------------------------------------------------ */
+// blossoms
 function spawnBlossom() {
     const wrapper = document.getElementById("countdown-wrapper");
     const blossom = document.createElement("div");
@@ -307,17 +789,292 @@ function spawnBlossom() {
 }
 setInterval(spawnBlossom, 1300);
 
-/* ----------------------------------------------------------
-   CLICK COUNTDOWN = FALLING PEAM BURST
------------------------------------------------------------ */
-countdownText.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const burst = 6 + Math.floor(Math.random() * 5);
-    for (let i = 0; i < burst; i++) {
-        setTimeout(spawnFallingPeam, i * 120);
+window.addEventListener('DOMContentLoaded', function() {
+    const fanProjectsPage = document.getElementById('fanProjectsPage');
+    const fanProjectsBtn = document.getElementById('fanProjectsBtn');
+    const closeFanProjects = document.getElementById('closeFanProjects');
+    const fanProjectsGrid = document.getElementById('fanProjectsGrid');
+
+    if (!fanProjectsBtn || !fanProjectsPage || !closeFanProjects || !fanProjectsGrid) {
+        console.error('Fan Projects elements not found');
+        return;
+    }
+
+    // Open FP page
+    fanProjectsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        fanProjectsPage.classList.add('show');
+        loadFanProjects();
+    });
+
+    // Close Fan Projects page
+    closeFanProjects.addEventListener('click', () => {
+        fanProjectsPage.classList.remove('show');
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && fanProjectsPage.classList.contains('show')) {
+            fanProjectsPage.classList.remove('show');
+        }
+    });
+
+    // Load fan projects from JSON
+    function loadFanProjects() {
+        // Configuration: Set your JSON URL here (required for file:// protocol)
+        const externalJsonUrl = 'https://raw.githubusercontent.com/tacotacopi/countdown/refs/heads/main/fan-projects.json';
+        
+        // CORS proxy
+        const corsProxy = 'https://corsproxy.io/?';
+
+        // Detect if running from file:// protocol
+        const isFileProtocol = window.location.protocol === 'file:';
+        
+        // Determine the URL to fetch from
+        let fetchUrl;
+        
+        if (isFileProtocol || externalJsonUrl) {
+            // Use external URL with CORS proxy for file:// or if external URL is set
+            if (externalJsonUrl && !externalJsonUrl.includes('YOUR_USERNAME')) {
+                fetchUrl = corsProxy + encodeURIComponent(externalJsonUrl);
+            } else {
+                // Show error if external URL not configured
+                fanProjectsGrid.innerHTML = `
+                    <div class="error-message">
+                        <p>Please configure an external JSON URL</p>
+                        <p style="font-size: 14px; margin-top: 8px;">Update <code>externalJsonUrl</code> in the code with your GitHub raw URL.</p>
+                        <p style="font-size: 13px; color: #71717a; margin-top: 8px;">i prob messed it up</p>
+                    </div>
+                `;
+                return;
+            }
+        } else {
+            // Running on a server, use local file
+            fetchUrl = 'fan-projects.json';
+        }
+
+        // Fetch projects from JSON
+        fetch(fetchUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(projects => {
+                displayProjects(projects);
+            })
+            .catch(error => {
+                console.error('Error loading fan projects:', error);
+                fanProjectsGrid.innerHTML = `
+                    <div class="error-message">
+                        <p>Failed to load projects.</p>
+                        <p style="font-size: 14px; margin-top: 8px;">
+                            ${isFileProtocol 
+                                ? 'Set an external JSON URL or run a local server (python -m http.server 8000)' 
+                                : 'Make sure fan-projects.json exists in the same directory.'}
+                        </p>
+                    </div>
+                `;
+            });
+    }
+
+    // show projects on the page
+    function displayProjects(projects) {
+        if (!projects || projects.length === 0) {
+            fanProjectsGrid.innerHTML = '<div class="loading-message">No projects found.</div>';
+            return;
+        }
+        
+        // Clear loading message
+        fanProjectsGrid.innerHTML = '';
+        
+        // Create cards for each project
+        projects.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'fan-project-card';
+            
+            card.innerHTML = `
+                <div class="fan-project-header">
+                    <img src="${project.icon || 'https://via.placeholder.com/48/71717a/ffffff?text=?'}" alt="${project.name}" class="fan-project-icon" onerror="this.src='https://via.placeholder.com/48/71717a/ffffff?text=?'">
+                    <div class="fan-project-title">
+                        <h3>${project.name}</h3>
+                        <p class="fan-project-author">by ${project.author}</p>
+                    </div>
+                </div>
+                <p class="fan-project-description">${project.description}</p>
+                <a href="${project.github}" target="_blank" class="fan-project-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+            `;
+            
+            fanProjectsGrid.appendChild(card);
+        });
     }
 });
+
+// VIX Easter Egg - Type "vix" anywhere on the page to swap logos
+(function() {
+    // Check if easter egg has already been triggered this session
+    if (sessionStorage.getItem("vixEasterEggTriggered")) {
+        return;
+    }
+
+    let keySequence = "";
+    const targetSequence = "vix";
+
+    document.addEventListener("keydown", (e) => {
+        // Only trigger if not already activated
+        if (sessionStorage.getItem("vixEasterEggTriggered")) {
+            return;
+        }
+
+        // Add the key to our sequence
+        keySequence += e.key.toLowerCase();
+
+        // Keep only the last 3 characters
+        if (keySequence.length > 3) {
+            keySequence = keySequence.slice(-3);
+        }
+
+        // Check if we matched the sequence
+        if (keySequence === targetSequence) {
+            triggerVixTransition();
+            sessionStorage.setItem("vixEasterEggTriggered", "true");
+            keySequence = ""; // Reset
+        }
+    });
+
+    function triggerVixTransition() {
+        // Find all images with iisulogo.png
+        const logos = document.querySelectorAll('img[src*="iisulogo.png"]');
+
+        logos.forEach((logo) => {
+            // Add glitch out animation
+            logo.classList.add("vix-glitch-out");
+
+            // After glitch out completes, swap image and glitch in
+            setTimeout(() => {
+                logo.src = logo.src.replace("iisulogo.png", "vixlogo.png");
+                logo.classList.remove("vix-glitch-out");
+                logo.classList.add("vix-glitch-in");
+
+                // Clean up animation class after it completes
+                setTimeout(() => {
+                    logo.classList.remove("vix-glitch-in");
+                }, 600);
+            }, 600);
+        });
+    }
+})();
+
+// ZORK Easter Egg - When logo is highlighted/selected, change to zork.png
+(function() {
+    // Check if easter egg has already been triggered this session
+    if (sessionStorage.getItem("zorkEasterEggTriggered")) {
+        return;
+    }
+
+    const mainLogo = document.querySelector('.logo');
+    
+    if (!mainLogo) return;
+
+    // Listen for text selection events
+    document.addEventListener('selectionchange', () => {
+        // Only trigger if not already activated
+        if (sessionStorage.getItem("zorkEasterEggTriggered")) {
+            return;
+        }
+
+        const selection = window.getSelection();
+        
+        // Check if the logo is within the selected range
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            
+            // Check if the logo element is contained in or intersects with the selection
+            if (range.intersectsNode(mainLogo)) {
+                triggerZorkTransition();
+                sessionStorage.setItem("zorkEasterEggTriggered", "true");
+            }
+        }
+    });
+
+    function triggerZorkTransition() {
+        // Add glitch out animation
+        mainLogo.classList.add("vix-glitch-out");
+
+        // After glitch out completes, swap image and glitch in
+        setTimeout(() => {
+            mainLogo.src = mainLogo.src.replace(/iisu\.png$/, "zork.png");
+            mainLogo.classList.remove("vix-glitch-out");
+            mainLogo.classList.add("vix-glitch-in");
+
+            // Clean up animation class after it completes
+            setTimeout(() => {
+                mainLogo.classList.remove("vix-glitch-in");
+            }, 600);
+        }, 600);
+    }
+})();
 </script>
+
+<!-- Fan Projects Page -->
+<div class="fan-projects-page" id="fanProjectsPage">
+    <button class="fan-projects-close" id="closeFanProjects">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        Close
+    </button>
+    
+    <div class="fan-projects-header">
+        <h1>Fan Projects</h1>
+        <p>Community-created projects for iiSU</p>
+    </div>
+    
+    <div class="fan-projects-grid" id="fanProjectsGrid">
+        <div class="loading-message">Loading projects...</div>
+    </div>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<nav class="bottom-nav">
+    <div class="bottom-nav-content">
+        <div class="bottom-nav-logo">
+            <img src="iisulogo.png" alt="iiSU">
+        </div>
+        <div class="bottom-nav-links">
+            <a href="https://github.com/iisu-network/iiSU/releases/latest" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+            </a>
+            <a href="#" id="fanProjectsBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Fan Projects
+            </a>
+            <a href="https://github.com/iisu-network/iiSU" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+</nav>
 
 </body>
 </html>
