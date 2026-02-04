@@ -491,7 +491,8 @@ img.logo:hover {
     }
 }
 
-/* ---------------------- FAN PROJECTS PAGE ---------------------- */
+// fan projects
+    
 .fan-projects-page {
     position: fixed;
     top: 0;
@@ -819,18 +820,15 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Load fan projects from JSON
     function loadFanProjects() {
-        // Configuration: Set your JSON URL here (required for file:// protocol)
         const externalJsonUrl = 'https://raw.githubusercontent.com/tacotacopi/countdown/refs/heads/main/fan-projects.json';
         
-        // CORS proxy
+
         const corsProxy = 'https://corsproxy.io/?';
 
-        // Detect if running from file:// protocol
+
         const isFileProtocol = window.location.protocol === 'file:';
-        
-        // Determine the URL to fetch from
+
         let fetchUrl;
         
         if (isFileProtocol || externalJsonUrl) {
@@ -841,7 +839,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 // Show error if external URL not configured
                 fanProjectsGrid.innerHTML = `
                     <div class="error-message">
-                        <p>Please configure an external JSON URL</p>
+                        <p>configure an external JSON URL</p>
                         <p style="font-size: 14px; margin-top: 8px;">Update <code>externalJsonUrl</code> in the code with your GitHub raw URL.</p>
                         <p style="font-size: 13px; color: #71717a; margin-top: 8px;">i prob messed it up</p>
                     </div>
@@ -849,11 +847,9 @@ window.addEventListener('DOMContentLoaded', function() {
                 return;
             }
         } else {
-            // Running on a server, use local file
             fetchUrl = 'fan-projects.json';
         }
-
-        // Fetch projects from JSON
+N
         fetch(fetchUrl)
             .then(response => {
                 if (!response.ok) {
@@ -871,8 +867,8 @@ window.addEventListener('DOMContentLoaded', function() {
                         <p>Failed to load projects.</p>
                         <p style="font-size: 14px; margin-top: 8px;">
                             ${isFileProtocol 
-                                ? 'Set an external JSON URL or run a local server (python -m http.server 8000)' 
-                                : 'Make sure fan-projects.json exists in the same directory.'}
+                                ? 'json error)' 
+                                : 'github check for json'}
                         </p>
                     </div>
                 `;
