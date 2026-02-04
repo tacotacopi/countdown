@@ -820,36 +820,29 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    function loadFanProjects() {
-        const externalJsonUrl = 'https://raw.githubusercontent.com/tacotacopi/countdown/refs/heads/main/fan-projects.json';
-        
-
-        const corsProxy = 'https://corsproxy.io/?';
-
-
-        const isFileProtocol = window.location.protocol === 'file:';
-
-        let fetchUrl;
-        
-        if (isFileProtocol || externalJsonUrl) {
-            // Use external URL with CORS proxy for file:// or if external URL is set
-            if (externalJsonUrl && !externalJsonUrl.includes('YOUR_USERNAME')) {
-                fetchUrl = corsProxy + encodeURIComponent(externalJsonUrl);
-            } else {
-                // Show error if external URL not configured
-                fanProjectsGrid.innerHTML = `
-                    <div class="error-message">
-                        <p>configure an external JSON URL</p>
-                        <p style="font-size: 14px; margin-top: 8px;">Update <code>externalJsonUrl</code> in the code with your GitHub raw URL.</p>
-                        <p style="font-size: 13px; color: #71717a; margin-top: 8px;">i prob messed it up</p>
-                    </div>
-                `;
-                return;
+function loadFanProjects() {
+    fetch('fan-projects.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        } else {
-            fetchUrl = 'fan-projects.json';
-        }
-
+            return response.json();
+        })
+        .then(projects => {
+            displayProjects(projects);
+        })
+        .catch(error => {
+            console.error('Error loading fan projects:', error);
+            fanProjectsGrid.innerHTML = `
+                <div class="error-message">
+                    <p>Failed to load projects.</p>
+                    <p style="font-size: 14px; margin-top: 8px;">
+                        check json
+                    </p>
+                </div>
+            `;
+        });
+}
         fetch(fetchUrl)
             .then(response => {
                 if (!response.ok) {
