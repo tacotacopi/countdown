@@ -491,6 +491,7 @@ img.logo:hover {
     }
 }
 
+
     
 .fan-projects-page {
     position: fixed;
@@ -818,12 +819,37 @@ window.addEventListener('DOMContentLoaded', function() {
             fanProjectsPage.classList.remove('show');
         }
     });
-function loadFanProjects() {
-    // Use jsDelivr CDN - much more reliable than CORS proxies
-    const fetchUrl = 'https://cdn.jsdelivr.net/gh/tacotacopi/countdown@main/fan-projects.json';
-    
-}
 
+    function loadFanProjects() {
+        const externalJsonUrl = 'https://raw.githubusercontent.com/tacotacopi/countdown/refs/heads/main/fan-projects.json';
+        
+
+        const corsProxy = 'https://corsproxy.io/?';
+
+
+        const isFileProtocol = window.location.protocol === 'file:';
+
+        let fetchUrl;
+        
+        if (isFileProtocol || externalJsonUrl) {
+            // Use external URL with CORS proxy for file:// or if external URL is set
+            if (externalJsonUrl && !externalJsonUrl.includes('YOUR_USERNAME')) {
+                fetchUrl = corsProxy + encodeURIComponent(externalJsonUrl);
+            } else {
+                // Show error if external URL not configured
+                fanProjectsGrid.innerHTML = `
+                    <div class="error-message">
+                        <p>configure an external JSON URL</p>
+                        <p style="font-size: 14px; margin-top: 8px;">Update <code>externalJsonUrl</code> in the code with your GitHub raw URL.</p>
+                        <p style="font-size: 13px; color: #71717a; margin-top: 8px;">i prob messed it up</p>
+                    </div>
+                `;
+                return;
+            }
+        } else {
+            fetchUrl = 'fan-projects.json';
+        }
+N
         fetch(fetchUrl)
             .then(response => {
                 if (!response.ok) {
